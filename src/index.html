@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<% if (process.env.NODE_ENV === "production" ) { %>
+		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' blob; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/;  img-src 'self';worker-src 'self' blob: ">
+	<% } %>
+	<title><%= htmlWebpackPlugin.options.title %></title>
+	<link href="./unicodetiles/unicodetiles.css" rel="stylesheet" type="text/css" />
+	<script src="./unicodetiles/unicodetiles.js"></script>
+	<script src="./unicodetiles/input.js"></script>
+	<script src="./howler/howler.js"></script>
+	<link rel="icon" href="./favicon.ico" sizes="any" />
+</head>
+<body>
+	<div id="tvFrame"></div>
+	<div id="mobileFrame" style = "display: none; background-repeat: no-repeat; background-size: contain; background-position-x: center; position: absolute; top: 0px; z-index: -20;">
+		<div id = "button7" class = "mobButton"></div>
+		<div id = "button8" class = "mobButton"></div>
+		<div id = "button9" class = "mobButton"></div>
+		<div id = "button4" class = "mobButton"></div>
+		<div id = "button6" class = "mobButton"></div>
+		<div id = "button1" class = "mobButton"></div>
+		<div id = "button2" class = "mobButton"></div>
+		<div id = "button3" class = "mobButton"></div>
+		<div id = "buttonA" class = "mobButton"></div>
+		<div id = "buttonB" class = "mobButton"></div>
+		<div id = "buttonStart" class = "mobButton"></div>
+		<div id = "buttonSelect" class = "mobButton"></div>
+	</div>
+	<div id="game"></div>
+	<div id="cutscene" class="center"></div>
+	<div style="opacity: 0; position: absolute; top: 0; left: 0;">
+		<span style="font-family: 'gameFont';">-</span>
+		<span style="font-family: 'cutsceneFont';">-</span>
+	</div>
+</body>
+</html>

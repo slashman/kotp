@@ -1,0 +1,42 @@
+@font-face {
+	font-family: 'gameFont';
+	src: url('fonts/Final-Fantasy.ttf') format('truetype');
+}
+
+.mobButton {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+body {
+    background-color: black;
+    font-family: DejaVuSansMono_ut, sans-serif;
+    color: white;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.center {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#game {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#tvFrame{
+	position: absolute;
+	z-index: 100;
+	height: 100%;
+    width: 100%;
+	display: none;
+    background-image: url('../../public/assets/hires/tv2.png');
+    background-position-x: center;
+    background-repeat: no-repeat;
+}
