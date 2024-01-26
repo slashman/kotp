@@ -21,7 +21,12 @@ const races = {
 	},
 	TOWNSMAN: {
 		name: 'npc.townsman',
-		tilesetData: '0-14',
+		tilesetData: {
+			up: ['1-14', '6-14'],
+			down: ['0-14', '5-14'],
+			left: ['2-14', '3-14'],
+			right: ['4-14', '7-14']
+		},
 		dialogs: ['dialog.npc.1'],
 		unique: false
 	},

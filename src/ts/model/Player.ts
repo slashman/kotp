@@ -1,3 +1,4 @@
+import { AnimatedSprite, Texture } from "pixi.js";
 import Loc from "../loc/Loc";
 import Random from "../Random";
 import Being from "./Being.class";
@@ -68,12 +69,22 @@ export default class Player {
 		this.guts = new Stat(50);
 		this._c = circular.register('Player');
 	}
-	
+	private upTextures: Texture[];
+	private downTextures: Texture[];
+	private leftTextures: Texture[];
+	private rightTextures: Texture[];
+	sprite: AnimatedSprite;
 	init (game: any) {
 		this.game = game;
 		for (var j = -MAX_SIGHT_RANGE; j <= MAX_SIGHT_RANGE; j++){
 			this.visible[j] = [];
 		}
+		this.upTextures = game.display.getTextures('main', ['1-13', '6-13']);
+		this.downTextures = game.display.getTextures('main', ['0-13', '5-13']);
+		this.leftTextures = game.display.getTextures('main', ['2-13', '3-13']);
+		this.rightTextures = game.display.getTextures('main', ['4-13', '7-13']);
+		this.sprite = game.display.createAnimatedSprite(true, this.downTextures);
+		this.updateSprite(0, 1);
 	}
 	addMoney (howMuch: number) {
 		this.money += howMuch;
@@ -102,7 +113,7 @@ export default class Player {
 			this.game.display.showDialog(`${Loc.loc("dialog.says", being.getName())}\n${Loc.loc(being.race.dialogs[being.currentMessage])}`);
 			return true;
 		} else {
-			this.game.display.updatePlayerSprite();
+			//this.game.display.updatePlayerSprite();
 			await this.game.display.springPlayer(dx, dy, async () => await this.attack(being));
 			return true;
 		}
@@ -112,10 +123,15 @@ export default class Player {
 	}
 	async tryMove (dir: IPosition) {
 		this.lastAction = 'move';
+		//if (this.lastMoveDir.x != dir.x || this.lastMoveDir.y != dir.y) {
+			this.updateSprite(dir.x, dir.y);
+		//}
+		this.sprite.play();
 		this.lastMoveDir.x = dir.x;
 		this.lastMoveDir.y = dir.y;
 		const being = this.game.world.level.getBeing(this.x + dir.x, this.y + dir.y);
 		if (being) {
+			this.sprite.gotoAndStop(0);
 			const interacted = await this.interactWithBeing(being, dir.x, dir.y);
 			if (interacted) {
 				if (this.game.input.mode === 'MOVEMENT') {
@@ -145,11 +161,25 @@ export default class Player {
 			this.endTurn();
 			return;
 		}
-		this.game.audio.playSfx('fs_grass_01,fs_grass_02,fs_grass_03,fs_grass_04,fs_grass_05,fs_grass_06');
-		await this.game.display.scroll(dir.x, dir.y, 200);
+		//this.game.audio.playSfx('fs_grass_01,fs_grass_02,fs_grass_03,fs_grass_04,fs_grass_05,fs_grass_06');
+		await this.game.display.scroll(dir.x, dir.y, 300);
+		this.sprite.gotoAndStop(0);
 		this.x += dir.x;
 		this.y += dir.y;
 		this.land();
+	}
+	private updateSprite(dx: number, dy: number): void {
+		let textures = this.downTextures;
+		if (dy === 1) {
+			textures = this.downTextures;
+		} else if (dy === -1) {
+			textures = this.upTextures;
+		} else if (dx === -1) {
+			textures = this.leftTextures;
+		} else {
+			textures = this.rightTextures;
+		}
+		this.sprite.textures = textures;
 	}
 	tryBuy (itemDef: any) {
 		if (itemDef.goldValue > this.money) {
@@ -233,6 +263,7 @@ export default class Player {
 		}
 		this.updateFOV();
 		this.game.display.refresh();
+		this.sprite.gotoAndStop(0);
 		await this.game.world.level.beingsTurn();
 	}
 	canSee (dx: number, dy: number, physically?: boolean) {

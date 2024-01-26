@@ -4,7 +4,7 @@
  * 
  */
 
-import { Sprite } from 'pixi.js';
+import { AnimatedSprite, Sprite, Texture } from 'pixi.js';
 import RacesData from '../data/Races.data';
 import Loc from '../loc/Loc';
 import Random from '../Random';
@@ -20,7 +20,7 @@ export default class Being {
 
 	private game: any;
 	private level: Level;
-	sprite: Sprite; // TODO: When backporting to JSRL, this should be in PIXIDisplay as a map indexed by an unique beingId
+	sprite: AnimatedSprite; // TODO: When backporting to JSRL, this should be in PIXIDisplay as a map indexed by an unique beingId
 	spriteOffsetX: number;
 	spriteOffsetY: number;
 	private tileName: string;
@@ -28,6 +28,7 @@ export default class Being {
 	private xPosition: number;
 	private yPosition: number;
 	private intent: string;
+	isMoving: boolean;
 	eventId: string;
 	interacted: boolean;
 	race: any;
@@ -49,11 +50,19 @@ export default class Being {
 		this._c =  circular.register('Being');
 	}
 	
+	private upTextures: Texture[];
+	private downTextures: Texture[];
+	private leftTextures: Texture[];
+	private rightTextures: Texture[];
 	init (game: any, level: Level, race: any, depthModifier: number): void{
 		this.game = game;
 		this.level = level;
 		const tileset = race.tileset || 'main';
-		this.sprite = game.display.createSprite(tileset, race.tilesetData);
+		this.upTextures = game.display.getTextures('main', race.tilesetData.up);
+		this.downTextures = game.display.getTextures('main', race.tilesetData.down);
+		this.leftTextures = game.display.getTextures('main', race.tilesetData.left);
+		this.rightTextures = game.display.getTextures('main', race.tilesetData.right);
+		this.sprite = game.display.createAnimatedSprite(false, this.downTextures);
 		this.sprite.visible = false;
 		this.spriteOffsetX = game.display.tilesets[tileset].offsetX;
 		this.spriteOffsetY = game.display.tilesets[tileset].offsetY;
@@ -66,9 +75,27 @@ export default class Being {
 		this.xPosition = 0;
 		this.yPosition = 0;
 		this.intent = 'CHASE';
+		this.updateSprite(0,1);
+	}
+
+	private updateSprite(dx: number, dy: number): void {
+		let textures = this.downTextures;
+		if (dy === 1) {
+			textures = this.downTextures;
+		} else if (dy === -1) {
+			textures = this.upTextures;
+		} else if (dx === -1) {
+			textures = this.leftTextures;
+		} else {
+			textures = this.rightTextures;
+		}
+		this.sprite.textures = textures;
 	}
 
 	async act () {
+		if (this.isMoving) {
+			return;
+		}
 		switch (this.intent){
 			case 'RANDOM':
 				await this.actRandom();
@@ -150,12 +177,19 @@ export default class Being {
 	}
 
 	async moveTo (dx: number, dy: number) {
+		this.updateSprite(dx, dy);
+		this.sprite.play();
 		this.level.moveBeing(this, dx, dy);
 		this.xPosition = this.x + dx;
 		this.yPosition = this.y + dy;
-		if (this.level.safe)
-			return;
-		await this.game.display.moveBeing(this, dx, dy);
+		/*if (this.level.safe)
+			return;*/
+		this.isMoving = true;
+		const promise = this.game.display.moveBeing(this, dx, dy);
+		promise.then(() => {
+			this.isMoving = false;
+			this.sprite.gotoAndStop(0);
+		});
 	}
 
 	placeOn (x: number, y: number) {

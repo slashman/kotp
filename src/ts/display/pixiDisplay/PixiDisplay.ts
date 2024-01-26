@@ -5,7 +5,7 @@
  * 
  */
 
-import { Application, Assets, Texture, Rectangle, Sprite, Text, Container } from 'pixi.js';
+import { Application, Assets, Texture, Rectangle, Sprite, Text, Container, AnimatedSprite } from 'pixi.js';
 import ItemsData from '../../data/Items.data';
 import Loc from '../../loc/Loc';
 import Being from '../../model/Being.class';
@@ -276,8 +276,7 @@ export default {
 		this.semiViewportCountX = Math.floor(config.viewportCountX / 2);
 		this.semiViewportCountY = Math.floor(config.viewportCountY / 2);
 
-		this.playerSprite = new Sprite(this.tilesets.main.textureMap['0-13']);
-		this.inGameContainer.addChild(this.playerSprite);
+		//this.inGameContainer.addChild(this.playerSprite);
 
 		/*const hudSprite = this.inGameContainer.addChild(new Sprite(Texture.WHITE));
 		hudSprite.tint = 0xabb3a3;
@@ -575,23 +574,7 @@ export default {
 			return null;
 		}
 	},
-	updatePlayerSprite () {
-		var level = this.game.world.level as Level;
-		let coord = '0-0';
-		let tileset = 'main';
-		if (level.player.lastMoveDir.y === 1) {
-			coord = '0-13'
-		} else if (level.player.lastMoveDir.y === -1) {
-			coord = '1-13'
-		} else if (level.player.lastMoveDir.x === -1) {
-			coord = '2-13'
-		} else {
-			coord = '4-13'
-		}
-		this.playerSprite.texture = this.tilesets[tileset].textureMap[coord];
-	},
 	async scroll (dx: number, dy: number, time: number): Promise<void> {
-		this.updatePlayerSprite();
 		const originalX = this.viewportContainer.position.x;
 		const originalY = this.viewportContainer.position.y;
 		await new Promise<void>(resolve => {
@@ -613,12 +596,11 @@ export default {
 	refresh: function() {
 		this.visibleBeings.forEach(being => being.sprite.visible = false);
 		this.visibleBeings = [];
-		this.updatePlayerSprite();
-		this.playerSprite.position.x = Math.floor(this.config.canvasWidth / 2);
-		this.playerSprite.position.y = Math.floor((this.config.canvasHeight - LOWER_BAR_HEIGHT) / 2)   // Lower bar;
+		const player = this.game.world.level.player;
+		player.sprite.position.x = Math.floor(this.config.canvasWidth / 2);
+		player.sprite.position.y = Math.floor((this.config.canvasHeight - LOWER_BAR_HEIGHT) / 2);
 		this.viewportContainer.position.x = 0;
 		this.viewportContainer.position.y = 0;
-		const player = this.game.world.level.player;
 		const noTexture = this.tilesets.slashie.textureMap['1-5'];
 		const oosTexture = this.game.world.level.id === 'overworld' ? this.tilesets.slashie.textureMap['0-5'] : this.tilesets.slashie.textureMap['2-5'];
 		for (var x = -this.semiViewportCountX; x <= this.semiViewportCountX; x++) {
@@ -649,8 +631,10 @@ export default {
 				const being = terrainAppearance ? this.game.world.level.getBeing(mapX, mapY) : null;
 				if (being) {
 					being.sprite.visible = true;
-					being.sprite.position.x = this.playerSprite.position.x + x * 16 + being.spriteOffsetX;
-					being.sprite.position.y = this.playerSprite.position.y + y * 16 + being.spriteOffsetY;
+					if (!being.isMoving) {
+						being.sprite.position.x = player.sprite.position.x + x * 16 + being.spriteOffsetX;
+						being.sprite.position.y = player.sprite.position.y + y * 16 + being.spriteOffsetY;
+					}
 					this.visibleBeings.push(being);
 				}
 			}
@@ -742,12 +726,7 @@ export default {
 		this.components.helpWindow.mainContainer.visible = false;
 	},
 	async moveBeing (being: Being, dx: number, dy: number): Promise<void> {
-		const player = this.game.world.level.player;
-		var xr = being.x + dx - player.x;
-		var yr = being.y + dy - player.y;
-		if (player.canSee(xr, yr, true)){	
-			return this.moveSprite(being.sprite, dx, dy, 200);
-		}
+		return this.moveSprite(being.sprite, dx, dy, 290);
 	},
 
 	async moveSprite (sprite: Sprite, dx: number, dy: number, time: number): Promise<void> {
@@ -779,14 +758,14 @@ export default {
 	},
 	async springPlayer (dx: number, dy: number, edgeAction: () => Promise<void>): Promise<void> {
 		const player = this.game.world.level.player;
-		return this.springSprite(this.playerSprite, dx, dy, 0, 0, player.x, player.y, edgeAction);
+		return this.springSprite(player.sprite, dx, dy, 0, 0, player.x, player.y, edgeAction);
 	},
 	async springSprite (sprite: Sprite, dx: number, dy: number, offsetX: number, offsetY: number, fromMapX: number, fromMapY: number, edgeAction: () => Promise<void>): Promise<void> {
 		const player = this.game.world.level.player;
 		const originalPlayerX = player.x;
 		const originalPlayerY = player.y;
-		const originalPlayerSpriteX = this.playerSprite.position.x;
-		const originalPlayerSpriteY = this.playerSprite.position.y;
+		const originalPlayerSpriteX = player.sprite.position.x;
+		const originalPlayerSpriteY = player.sprite.position.y;
 		await new Promise<void>((resolve) => {
 			new TWEEN.Tween(sprite.position).to(
 				{
@@ -839,6 +818,19 @@ export default {
 	createSprite (tilesetName: string, coord: string) {
 		const sprite = new Sprite(this.tilesets[tilesetName].textureMap[coord]);
 		this.viewportContainer.addChild(sprite); // TODO: Ask for the container?
+		return sprite;
+	},
+	getTextures (tilesetName: string, coords: string[]) {
+		return coords.map(coord => this.tilesets[tilesetName].textureMap[coord]);
+	},
+	createAnimatedSprite(player: true,textures: Texture[]) {
+		const sprite = new AnimatedSprite(textures);
+		if (player) {
+			this.inGameContainer.addChild(sprite); // TODO: Ask for the container?
+		} else {
+			this.viewportContainer.addChild(sprite); // TODO: Ask for the container?
+		}
+		sprite.animationSpeed = 1 / 8;
 		return sprite;
 	},
 	isMobile () {
