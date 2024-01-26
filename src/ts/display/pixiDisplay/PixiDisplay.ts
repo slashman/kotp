@@ -15,6 +15,7 @@ import IPosition from '../../model/Position';
 import { PIXIFrame } from './PIXIFrame.class';
 import PIXIGrid from './PIXIGrid.class';
 import PixiUtils from './PixiUtils';
+import BattleScreen from './BattleScreen';
 const TWEEN = require('@tweenjs/tween.js');
 
 
@@ -302,6 +303,8 @@ export default {
 		this.initDialogWindow();
 		this.initHelpWindow();
 		this.initLanguageSelection();
+		this.battleScreen = new BattleScreen(this, this.inGameContainer);
+		// this.battleScreen.display();
 		resizeCanvas();
 	},
 	async initTitleScreen () {

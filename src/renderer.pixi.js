@@ -40,6 +40,16 @@ window.onload = () => {
           "offsetY": 0
         },
         {
+          "id": "battle",
+          "file": "assets/gfx/battle.png",
+          "tilesetCountX": 16,
+          "tilesetCountY": 10,
+          "tileSizeX": 16,
+          "tileSizeY": 24,
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        {
           "id": "slashie",
           "file": "assets/gfx/slashie.png",
           "tilesetCountX": 16,
