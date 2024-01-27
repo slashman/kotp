@@ -10,7 +10,7 @@ const levelMaps = {
 		persistent: true,
 		width: 32,
 		height: 32,
-		onEnter: ["intro.1", "intro.2", "intro.3", "intro.4"],
+		// onEnter: ["intro.1", "intro.2", "intro.3", "intro.4"],
 		exits: [
 			{ x: 7, y: 10, start: true },
 			//{ x: 7, y: 15, target: 'overworld' }

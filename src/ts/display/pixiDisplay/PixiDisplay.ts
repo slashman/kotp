@@ -10,7 +10,6 @@ import ItemsData from '../../data/Items.data';
 import Loc from '../../loc/Loc';
 import Being from '../../model/Being.class';
 import Item from '../../model/Item.class';
-import Level from '../../model/Level.class';
 import IPosition from '../../model/Position';
 import { PIXIFrame } from './PIXIFrame.class';
 import PIXIGrid from './PIXIGrid.class';
@@ -239,6 +238,17 @@ export default {
 			this.tilesets[tilesetData.id] = tileset;
 		}
 
+		this.texturesMap = {};
+		const images = [
+			{
+				key: 'battleBackground',
+				url: 'assets/gfx/battleback.png'
+			}
+		];
+		for (let i = 0; i < images.length; i++) {
+			this.texturesMap[images[i].key] = await Assets.load(images[i].url);
+		}
+
 		this.squareCursor = this.tilesets[config.squareCursor.tileset].textureMap[config.squareCursor.index];
 		this.pointyCursor = this.tilesets[config.pointyCursor.tileset].textureMap[config.pointyCursor.index];
 
@@ -304,7 +314,7 @@ export default {
 		this.initHelpWindow();
 		this.initLanguageSelection();
 		this.battleScreen = new BattleScreen(this, this.inGameContainer);
-		// this.battleScreen.display();
+		this.battleScreen.display();
 		resizeCanvas();
 	},
 	async initTitleScreen () {
@@ -391,6 +401,9 @@ export default {
 		const spanishFlag = container.addChild(new Sprite(this.tilesets.slashie.textureMap['11-1']));
 		spanishFlag.position.x = 40;
 		spanishFlag.position.y = 5.5*16;
+	},
+	createTextBox(x: number, y: number, text: string, wordWrapWidth: number) {
+		return PixiUtils.createTextBox(x, y, this.config.textboxFontSize, this.config.textColor, text, wordWrapWidth);
 	},
 	showTips () {
 		this.components.helpWindow.textBox.text = Loc.loc('help.tips');
@@ -825,6 +838,9 @@ export default {
 	},
 	getTextures (tilesetName: string, coords: string[]) {
 		return coords.map(coord => this.tilesets[tilesetName].textureMap[coord]);
+	},
+	getTexture (key: string) {
+		return this.texturesMap[key];
 	},
 	createAnimatedSprite(player: true,textures: Texture[]) {
 		const sprite = new AnimatedSprite(textures);

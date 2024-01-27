@@ -232,6 +232,8 @@ export default {
 			}
 			this.inputEnabled = false;
 			this.game.player.tryMove(this.movedir); // async...
+		} else if (this.mode === 'BATTLE'){
+			this.game.display.battleScreen.move(this.getMoveDir(k));
 		} else if (this.mode === 'INVENTORY'){
 			this.game.display.moveInventory(this.getMoveDir(k));
 			this.game.audio.playSfx("ui_inventory_move");

@@ -84,7 +84,7 @@ const Game = {
 		this.audio.playMx("mx_story");
 		this.display.activateViewport();
 		this.newGame();
-		this.input.mode = 'DIALOG';
+		this.input.mode = 'BATTLE';
 	},
 	continueGameSelected () {
 		if (!this.persistence.hasSaveGame()) {
