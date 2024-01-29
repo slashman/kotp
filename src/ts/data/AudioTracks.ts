@@ -1,12 +1,30 @@
 const AudioTracks = {
 	loadAudio(game) {
 		this.audio = game.audio;
-		/*this.audio.registerMx({
-			key: 'mx_home',
-			src: 'mx_home.ogg',
+		this.audio.registerMx({
+			key: 'mx_title',
+			src: 'mx_title_theme.ogg',
 			volume: 0.3,
 			loop: true
-		});*/
+		});
+		this.audio.registerMx({
+			key: 'mx_battle',
+			src: 'mx_battle_theme.ogg',
+			volume: 0.3,
+			loop: true
+		});
+		this.audio.registerMx({
+			key: 'mx_boss',
+			src: 'mx_boss_theme.ogg',
+			volume: 0.3,
+			loop: true
+		});
+		this.audio.registerMx({
+			key: 'mx_town',
+			src: 'mx_town_theme.ogg',
+			volume: 0.3,
+			loop: true
+		});
 		/*
 		this.audio.registerMx({
 			key: 'bg_exterior_day',
