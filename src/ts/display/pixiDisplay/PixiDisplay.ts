@@ -714,6 +714,7 @@ export default {
 	displayTitleScreen() {
 		this.components.titleScreen.mainContainer.visible = true;
 		this.titleIndex = 0;
+		this.game.audio.playMx('mx_title');
 	},
 	hideTitleScreen() {
 		this.components.titleScreen.mainContainer.visible = false;
