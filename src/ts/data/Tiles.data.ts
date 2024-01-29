@@ -60,7 +60,7 @@ const defs = {
 		coords: [[11,10]]
 	},
 	HOUSE: {
-		solid: false,
+		solid: true,
 		opaque: false,
 		name: 'Path',
 		coords: [[7,9], [8,9], [9,9], [10,9], [11, 9], [12,9], [1,10], [5, 10], [6, 10], [7, 10]]

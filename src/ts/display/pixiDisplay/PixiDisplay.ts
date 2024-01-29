@@ -295,7 +295,7 @@ export default {
 		hudSprite.position.y = 128;
 		hudSprite.width = 160;
 
-		this.statusText = this.inGameContainer.addChild(PixiUtils.createTextBox(72, 128 + 3, config.textboxFontSize, config.textColor, ''));
+		
 
 		const heartSprite = this.inGameContainer.addChild(new Sprite(this.tilesets.ui.textureMap['0-3']));
 		heartSprite.position.x = 0;
@@ -900,7 +900,11 @@ export default {
 		this.battleScreen.display(enemy);
 		this.inGameContainer.visible = false;
 		this.game.input.mode = 'BATTLE';
-		this.game.audio.playMx('mx_battle');
+		if (enemy.race.id === 'KING') {
+			this.game.audio.playMx('mx_boss');
+		} else {
+			this.game.audio.playMx('mx_battle');
+		}
 	},
 
 	exitBattleMode() {

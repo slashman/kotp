@@ -29,6 +29,8 @@ export default class Player {
 	y: number;
 	dead: boolean;
 
+	confidence: number = 0;
+
 	private visible: boolean[][];
 	private items: Item[];
 	private money: number;
@@ -114,6 +116,12 @@ export default class Player {
 		} else if (being.race.dialogs) {
 			if (being.defeated) {
 				return false;
+			}
+			if (being.race.id === 'KING') {
+				if (this.confidence < 5) {
+					this.game.display.showDialog("You lack the confidence.");
+					return false;
+				}
 			}
 			being.currentMessage++;
 			if (being.currentMessage >= being.race.dialogs.length) {

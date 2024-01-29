@@ -34,28 +34,55 @@ const races = {
 	},
 	T2: {
 		name: 'npc.townsman',
-		tilesetData: '10-0',
-		dialogs: ['dialog.npc.2'],
+		tilesetData: {
+			up: ['1-14', '6-14'],
+			down: ['0-14', '5-14'],
+			left: ['2-14', '3-14'],
+			right: ['4-14', '7-14']
+		},
+		hp: 25,
+		isPeaceful: false,
+		dialogs: ['dialog.npc.1'],
 		unique: false
 	},
 	T3: {
 		name: 'npc.townsman',
-		tilesetData: '10-0',
-		dialogs: ['dialog.npc.3'],
+		tilesetData: {
+			up: ['1-14', '6-14'],
+			down: ['0-14', '5-14'],
+			left: ['2-14', '3-14'],
+			right: ['4-14', '7-14']
+		},
+		hp: 35,
+		isPeaceful: false,
+		dialogs: ['dialog.npc.1'],
 		unique: false
 	},
 	T4: {
 		name: 'npc.townsman',
-		tilesetData: '10-0',
-		dialogs: ['dialog.npc.4'],
+		tilesetData: {
+			up: ['1-14', '6-14'],
+			down: ['0-14', '5-14'],
+			left: ['2-14', '3-14'],
+			right: ['4-14', '7-14']
+		},
+		hp: 45,
+		isPeaceful: false,
+		dialogs: ['dialog.npc.1'],
 		unique: false
 	},
-	DANIEL: {
-		name: 'Daniel',
-		tileset: 'slashie',
-		tilesetData: '0-6',
-		dialogs: ['dialog.daniel'],
-		unique: true
+	KING: {
+		name: 'npc.king',
+		tilesetData: {
+			up: ['1-14', '6-14'],
+			down: ['0-12', '5-14'],
+			left: ['2-14', '3-14'],
+			right: ['4-14', '7-14']
+		},
+		hp: 300,
+		isPeaceful: false,
+		dialogs: ['dialog.king.1'],
+		unique: false
 	},
 	DANIEL_SON: {
 		name: 'Alejandro',

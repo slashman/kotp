@@ -92,7 +92,7 @@ export default class BattleScreen {
 		this.rootContainer.addChild(display.createTextBox(24, 168, "GABY\n\nSLAS\n\nADRI", 200));
 		this.rootContainer.addChild(display.createTextBox(64, 152, "Confidence      Spirit", undefined));
 		this.hpTxt = display.createTextBox(80, 168, "100/100\n\n80/80\n\n70/70", undefined);
-		this.mpTxt = display.createTextBox(144, 168, "10\n\n50\n\n30", undefined);
+		this.mpTxt = display.createTextBox(132, 168, "10\n\n50\n\n30", undefined);
 		this.updateUI();
 		this.rootContainer.addChild(this.hpTxt);
 		this.rootContainer.addChild(this.mpTxt);
@@ -167,11 +167,11 @@ export default class BattleScreen {
 		this.enemy.hp.spend(Random.n(4, 8));
 		this.game.player.partyMembers[this.playerIndex].mp.spend(3);
 		if (this.enemy.hp.current > 0) {
-			const insult = this.getInsult();
+			const insult = [...this.getInsult()];
 			insult[0] = `${Loc.loc("dialog.says", this.enemy.getName())}\n` + insult[0];
 			this.game.display.showDialogs(insult, () => this.injureCurrentPlayer())
 		} else {
-			const praise = this.getPraise();
+			const praise = [...this.getPraise()];
 			praise[0] = `${Loc.loc("dialog.says", this.enemy.getName())}\n` + praise[0];
 			this.game.display.showDialogs(praise, () => this.victory())
 		}
@@ -237,6 +237,9 @@ export default class BattleScreen {
 		this.game.player.confidence++;
 		this.enemy.defeated = true;
 		this.game.display.exitBattleMode();
+		if (this.enemy.race.id === 'KING') {
+			this.game.display.showDialogs(['You made it!'], () => {})
+		}
 	}
 
 	private updateCursorPosition() {

@@ -18,10 +18,14 @@ const EnglishBundle = new Map<string, string>([
 	["ending.4", "This tale would win him many bottles of aguardiente... and to all naysayers he would show the tail."],
 	["ending.5", "Now, please... Go to sleep!"],
 
-	["intro.1", "The King has decreed, if someone makes the princess smile,"],
-	["intro.2", "He will grant them the title of knight, and the lands of Whateverlandia."],
-	["intro.3", "The proposal sounds great for you and your friends, but you lack the confidence."],
-	["intro.4", "Maybe proving yourselves funny enough will bring you the courage to jump into the challenge"],
+	["intro.1", "The cruel king of Quirkonia, Amandramon, has called for one who can make him laugh, in exchange for lands of dubious quality, and a royal title."],
+	["intro.2", "The risk for wasting the monarch's time, however, is noxious. This was evidenced by what happened with the jester, Soliman, whose joke didn't land well."],
+	["intro.3", "“Why did the emperor go to therapy? Because he had too many \"reigning\" issues!”"],
+	["intro.4", "Soliman is survived by his wife and three kids."],
+	["intro.5", "But you won't let this discourage you. You and your traveling party, the \"pun-ishers\" have arrived to Frownborough, the bustling capital city,"],
+	["intro.6", "With a single goal in your mind: To earn these lands and establish a settlement: Chuckleburg."],
+	["intro.7", "The ultimate test awaits, and you will only survive with your wits and the power of friendship."],
+
 
 	["acacias.1", "The Devil thought he could mess with you..."],
 	["acacias.2", "...but he doesn't know what Antonio Zapata is capable of."],
@@ -142,7 +146,8 @@ const EnglishBundle = new Map<string, string>([
 
 	["dialog.says", "%0s says:"],
 
-	["dialog.npc.1", "I am too busy with important stuff. Get off my way!"],
+	["dialog.npc.1", "What do you want?"],
+	["dialog.king.1", "Show me what you got."],
 	["dialog.npc.2", "A holy man used to live in a cave in the south of the valley."],
 	["dialog.npc.3", "Upgrade your machete or you won't stand a chance."],
 	["dialog.npc.4", "Laurels in your soup enhance its aroma."],

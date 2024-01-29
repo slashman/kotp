@@ -113,18 +113,18 @@ export default {
 				this.game.display.selectOption(k - ut.KEY_A);
 			}
 		} else if (this.mode === 'MOVEMENT'){
-			if (k === ut.KEY_I){
+			/*if (k === ut.KEY_I){
 				this.mode = 'INVENTORY';
 				this.game.audio.playSfx("ui_inventory_open");
 				this.game.display.showInventory();
 				return;
-			}
+			}*/
 			if (k === ut.KEY_ENTER || k === ut.KEY_SPACE) {
 				this.inputEnabled = false;
 				this.game.player.passTurn();
 				return;
 			}
-			if (k === ut.KEY_QUESTION_MARK) {
+			/*if (k === ut.KEY_QUESTION_MARK) {
 				this.mode = 'HELP';
 				this.game.display.showHelp();
 			}
@@ -146,7 +146,7 @@ export default {
 					}
 				});
 				return;
-			}
+			}*/
 		} else if (this.mode === 'HELP'){
 			if (k === ut.KEY_ESCAPE){
 				this.mode = 'MOVEMENT';
