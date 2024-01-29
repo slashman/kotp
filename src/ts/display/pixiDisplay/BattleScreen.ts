@@ -32,7 +32,7 @@ export default class BattleScreen {
 		this.enemySprite.y = 64;
 		this.rootContainer.addChild(this.enemySprite);
 		this.rootContainer.addChild(display.createTextBox(192, 152, "PUN\n\nCHEER\n\nDANCE", 200));
-		this.rootContainer.addChild(display.createTextBox(24, 168, "TREV\n\nGABY\n\nADRI", 200));
+		this.rootContainer.addChild(display.createTextBox(24, 168, "GABY\n\nSLAS\n\nADRI", 200));
 		this.rootContainer.addChild(display.createTextBox(64, 152, "Confidence      Spirit", undefined));
 		this.hpTxt = display.createTextBox(80, 168, "100/100\n\n80/80\n\n70/70", undefined);
 		this.mpTxt = display.createTextBox(144, 168, "10\n\n50\n\n30", undefined);
