@@ -5,7 +5,7 @@ import ItemsData from './Items.data';
 const levelMaps = {
 	farm: {
 		name: 'Sadtown',
-		music: 'mx_home',
+		music: 'mx_town',
 		respawn: true,
 		persistent: true,
 		width: 32,

@@ -112,7 +112,7 @@ export default class World {
 			this.player.drunkness.recoverAll();
 		}
 		if (this.level.music) {
-			// this.game.audio.playMx(this.level.music);
+			this.game.audio.playMx(this.level.music);
 		} else {
 			this.game.audio.stopCurrentMx();
 		}
