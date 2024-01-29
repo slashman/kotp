@@ -310,10 +310,10 @@ export default {
 
 		await this.initTitleScreen();
 		this.initInventoryWindow();
+		this.battleScreen = new BattleScreen(this.game, this, this.mainGameContainer);
 		this.initDialogWindow();
 		this.initHelpWindow();
 		this.initLanguageSelection();
-		this.battleScreen = new BattleScreen(this, this.mainGameContainer);
 		resizeCanvas();
 	},
 	async initTitleScreen () {
@@ -357,7 +357,7 @@ export default {
 		this.components.dialogWindow.container = container;
 		const frame = new PIXIFrame(32, 16, 240 - 8 * 4, 8 * 8, 16, this.tilesets.ui.textureMap, this.config.windowTiles.tiles);
 		container.addChild(frame.container);
-		this.components.dialogWindow.text = container.addChild(PixiUtils.createTextBox(32 + 8, 16 + 8, this.config.textboxFontSize, this.config.textColor, "", (240 - 32) * 4));
+		this.components.dialogWindow.text = container.addChild(PixiUtils.createTextBox(32 + 8, 16 + 8, this.config.textboxFontSize, this.config.textColor, "", (240 - 40) * 4));
 	},
 	initInventoryWindow () {
 		const recipesContainer = new Container();
@@ -896,10 +896,18 @@ export default {
 		this.inGameContainer.visible = true;
 	},
 
-	gotoBattle() {
-		this.battleScreen.display()
+	gotoBattle(enemy: Being) {
+		this.battleScreen.display(enemy);
 		this.inGameContainer.visible = false;
 		this.game.input.mode = 'BATTLE';
 		this.game.audio.playMx('mx_battle');
-	}
+	},
+
+	exitBattleMode() {
+		this.battleScreen.hide();
+		this.activateViewport();
+		this.game.input.mode = 'MOVEMENT';
+		this.game.audio.playMx('mx_town');
+
+	},
 }

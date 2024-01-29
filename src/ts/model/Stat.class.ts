@@ -33,8 +33,14 @@ export default class Stat {
 	getPercentage(): number {
 		return this.current / this.currentMax();
 	}
+	getString(): string {
+		return this.current + "/" + this.currentMax();
+	}
 	currentMax(): number {
 		return this.max - this.penalty;
+	}
+	remaining(): number {
+		return this.max - this.current;
 	}
 	addPenalty(v: number): void {
 		this.penalty += v;

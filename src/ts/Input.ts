@@ -89,6 +89,10 @@ export default {
 			if (k === ut.KEY_SPACE || k === ut.KEY_ENTER){
 				this.game.display.selectTitleOption();
 			}
+		} else if (this.mode === 'BATTLE'){
+			if (k === ut.KEY_SPACE || k === ut.KEY_ENTER){
+				this.game.display.battleScreen.selectOption();
+			}
 		} else if (this.mode === 'DIALOG') {
 			if (k === ut.KEY_SPACE || k === ut.KEY_ESCAPE || k === ut.KEY_ENTER){
 				this.game.display.hideDialog();

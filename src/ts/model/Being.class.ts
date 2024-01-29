@@ -18,6 +18,7 @@ export default class Being {
 	_c: any;
 	__serialData: any;
 
+	defeated: boolean;
 	private game: any;
 	private level: Level;
 	sprite: AnimatedSprite; // TODO: When backporting to JSRL, this should be in PIXIDisplay as a map indexed by an unique beingId
@@ -262,8 +263,8 @@ export default class Being {
 	}
 
 	afterDialog(): void {
-		if (this.isAggressive()) {
-			this.game.display.gotoBattle();
+		if (this.isAggressive() && !this.defeated) {
+			this.game.display.gotoBattle(this);
 		}
 	}
 }

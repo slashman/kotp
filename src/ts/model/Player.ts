@@ -68,6 +68,12 @@ export default class Player {
 		this.drunkness = new Stat(5);
 		this.guts = new Stat(50);
 		this._c = circular.register('Player');
+
+		this.partyMembers = [
+			new PartyMember(50, 30),
+			new PartyMember(80, 40),
+			new PartyMember(20, 80)
+		]
 	}
 	private upTextures: Texture[];
 	private downTextures: Texture[];
@@ -106,6 +112,9 @@ export default class Player {
 		if (being.race.interact) {
 			return being.race.interact(this.game);
 		} else if (being.race.dialogs) {
+			if (being.defeated) {
+				return false;
+			}
 			being.currentMessage++;
 			if (being.currentMessage >= being.race.dialogs.length) {
 				being.currentMessage = 0;
@@ -447,6 +456,17 @@ export default class Player {
 	}
 	petRosita (): void {
 		this.game.display.showDialog(Loc.loc("dialog.petRosita"));
+	}
+
+	partyMembers: PartyMember[];
+}
+
+class PartyMember {
+	hp: Stat;
+	mp: Stat;
+	constructor (maxHP: number, maxMP: number) {
+		this.hp = new Stat(maxHP);
+		this.mp = new Stat(maxMP);
 	}
 }
 
