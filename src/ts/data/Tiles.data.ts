@@ -3,7 +3,7 @@ const defs = {
 		solid: false,
 		opaque: false,
 		name: 'Grass',
-		coords: [[0,5]]
+		coords: [[0,8], [7, 2]]
 	},
 	TREE: {
 		solid: true,
@@ -17,146 +17,54 @@ const defs = {
 		name: 'Path',
 		rectCoords: [0, 9, 6, 9]
 	},
-
-
-	DUNGEON_WATER: {
+	STONE_FLOOR: {
 		solid: false,
 		opaque: false,
-		name: 'Water',
-		coords: [[37,7]]
+		name: 'Path',
+		coords: [[6,1]]
 	},
-	DUNGEON_WATER_BORDER: {
+	MISC_BLOCKS: {
+		solid: true,
+		opaque: false,
+		name: 'Path',
+		rectCoords: [3, 3, 7, 5]
+	},
+	throne: {
+		solid: true,
+		opaque: false,
+		name: 'Path',
+		rectCoords: [0, 6, 4, 7]
+	},
+	BLACK_FLOOR: {
 		solid: false,
 		opaque: false,
-		name: 'Water',
-		tileset: 'slashie',
-		coords: [[6,0]]
+		name: 'Path',
+		coords: [[1,4]]
 	},
-	DUNGEON_VOID: {
+	STONE_WALL: {
 		solid: true,
 		opaque: false,
-		name: 'Void',
-		coords: [[1,11]]
+		name: 'Path',
+		coords: [[4,8]]
 	},
-	DUNGEON_FLOOR: {
+	WATER: {
+		solid: true,
+		opaque: false,
+		name: 'Path',
+		coords: [[9,10]]
+	},
+	BRIDGE: {
 		solid: false,
 		opaque: false,
-		name: 'Floor',
-		coords: [[0,12]]
+		name: 'Path',
+		coords: [[11,10]]
 	},
-	DUNGEON_WALL: {
-		solid: true,
-		opaque: false,
-		name: 'Wall',
-		tileset: 'slashie',
-		coords: [[7,2]]
-	},
-	DUNGEON_WALL_TOP: {
-		solid: true,
-		opaque: true,
-		name: 'Wall',
-		tileset: 'slashie',
-		coords: [[7,1]]
-	},
-	DUNGEON_STAIRS_UP: {
+	HOUSE: {
 		solid: false,
 		opaque: false,
-		name: 'Stairs',
-		coords: [[0,13]]
+		name: 'Path',
+		coords: [[7,9], [8,9], [9,9], [10,9], [11, 9], [12,9], [1,10], [5, 10], [6, 10], [7, 10]]
 	},
-	DUNGEON_STAIRS_DOWN: {
-		solid: false,
-		opaque: false,
-		name: 'Stairs',
-		coords: [[1,12]]
-	},
-
-
-	LAIR_WATER_BORDER: {
-		solid: false,
-		opaque: false,
-		name: 'Water',
-		coords: [[32,17]]
-	},
-	LAIR_WALL: {
-		solid: true,
-		opaque: false,
-		name: 'Wall',
-		coords: [[30,18]]
-	},
-	LAIR_WALL_TOP: {
-		solid: true,
-		opaque: true,
-		name: 'Wall',
-		coords: [[30,17]]
-	},
-
-	OW_GRASSLAND: {
-		solid: false,
-		opaque: false,
-		name: 'Grassland',
-		coords: [[0,5]]
-	},
-	OW_FOREST_BLOB: {
-		solid: false,
-		opaque: false,
-		name: 'Forest',
-		rectCoords: [3, 0, 5, 2]
-	},
-	OW_TOWN: {
-		solid: false,
-		opaque: false,
-		name: 'Town',
-		rectCoords: [9, 0, 13, 5]
-	},
-	OW_MOUNTAIN: {
-		solid: true,
-		opaque: false,
-		name: 'Mountain',
-		rectCoords: [0, 0, 2, 2]
-	},
-	OW_DESERT: {
-		solid: true,
-		opaque: false,
-		name: 'Desert',
-		coords: [[7, 6]]
-	},
-	OW_DESERT_2: {
-		solid: true,
-		opaque: false,
-		name: 'Desert',
-		rectCoords: [2, 3, 3, 4]
-	},
-	OW_RIVER: {
-		solid: true,
-		opaque: false,
-		name: 'River',
-		coords: [[2, 5]]
-	},
-	OW_RIVER_2: {
-		solid: true,
-		opaque: false,
-		name: 'River',
-		rectCoords: [0, 3, 1, 4]
-	},
-	OW_TOWER: {
-		solid: false,
-		opaque: false,
-		name: 'Tower',
-		coords: [[6,6]]
-	},
-	OW_TOWER_ENTRANCE: {
-		solid: false,
-		opaque: false,
-		name: 'Tower',
-		coords: [[6,7]]
-	},
-	OW_OCEAN: {
-		solid: true,
-		opaque: false,
-		name: 'Ocean',
-		rectCoords: [6, 0, 8, 2]
-	}
 }
 
 const terrainTileWidth = 16;
