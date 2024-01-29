@@ -81,7 +81,6 @@ const Game = {
 
 	newGameSelected () {
 		this.display.hideTitleScreen();
-		this.audio.playMx("mx_story");
 		this.display.activateViewport();
 		this.newGame();
 		this.input.mode = 'BATTLE';
