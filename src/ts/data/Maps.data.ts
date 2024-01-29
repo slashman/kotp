@@ -16,7 +16,7 @@ const levelMaps = {
 			//{ x: 7, y: 15, target: 'overworld' }
 		],
 		beings: [
-			{ x: 4, y: 8, race: Races.TOWNSMAN, intent: 'RANDOM'},
+			{ x: 15, y: 58, race: Races.TOWNSMAN, intent: 'RANDOM'},
 			{ x: 12, y: 12, race: Races.TOWNSMAN, intent: 'RANDOM'},
 			{ x: 6, y: 14, race: Races.TOWNSMAN, intent: 'WAIT'},
 		],

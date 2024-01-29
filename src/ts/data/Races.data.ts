@@ -27,6 +27,7 @@ const races = {
 			left: ['2-14', '3-14'],
 			right: ['4-14', '7-14']
 		},
+		isPeaceful: false,
 		dialogs: ['dialog.npc.1'],
 		unique: false
 	},

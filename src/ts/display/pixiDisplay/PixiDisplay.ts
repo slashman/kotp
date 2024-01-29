@@ -313,8 +313,7 @@ export default {
 		this.initDialogWindow();
 		this.initHelpWindow();
 		this.initLanguageSelection();
-		this.battleScreen = new BattleScreen(this, this.inGameContainer);
-		this.battleScreen.display();
+		this.battleScreen = new BattleScreen(this, this.mainGameContainer);
 		resizeCanvas();
 	},
 	async initTitleScreen () {
@@ -895,5 +894,12 @@ export default {
 
 	activateViewport () {
 		this.inGameContainer.visible = true;
+	},
+
+	gotoBattle() {
+		this.battleScreen.display()
+		this.inGameContainer.visible = false;
+		this.game.input.mode = 'BATTLE';
+		this.game.audio.playMx('mx_battle');
 	}
 }

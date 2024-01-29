@@ -260,6 +260,12 @@ export default class Being {
 	isAggressive (): boolean {
 		return !!!this.race.isPeaceful;
 	}
+
+	afterDialog(): void {
+		if (this.isAggressive()) {
+			this.game.display.gotoBattle();
+		}
+	}
 }
 
 circular.registerClass('Being', Being, {

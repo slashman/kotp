@@ -83,7 +83,7 @@ const Game = {
 		this.display.hideTitleScreen();
 		this.display.activateViewport();
 		this.newGame();
-		this.input.mode = 'BATTLE';
+		this.input.mode = 'MOVEMENT';
 	},
 	continueGameSelected () {
 		if (!this.persistence.hasSaveGame()) {

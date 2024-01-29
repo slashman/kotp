@@ -110,7 +110,10 @@ export default class Player {
 			if (being.currentMessage >= being.race.dialogs.length) {
 				being.currentMessage = 0;
 			}
-			this.game.display.showDialog(`${Loc.loc("dialog.says", being.getName())}\n${Loc.loc(being.race.dialogs[being.currentMessage])}`);
+			this.game.display.showDialog(
+				`${Loc.loc("dialog.says", being.getName())}\n${Loc.loc(being.race.dialogs[being.currentMessage])}`,
+				() => being.afterDialog()
+			);
 			return true;
 		} else {
 			//this.game.display.updatePlayerSprite();
